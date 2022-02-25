@@ -1,0 +1,123 @@
+html {
+   box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+   box-sizing: inherit;
+}
+
+ul,
+ol {
+   padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+   margin: 0;
+}
+
+ul {
+   list-style: none;
+}
+
+img {
+   max-width: 100%;
+   display: block;
+}
+
+input,
+button,
+textarea,
+select {
+   font: inherit;
+}
+
+body {
+   background-color: rgb(168, 161, 161);
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   padding: 50px;
+}
+
+a {
+   text-decoration: none;
+}
+
+p {
+   margin-bottom: 25px;
+}
+
+.maintitle {
+   text-align: center;
+   margin-bottom: 50px;
+}
+
+.link {
+   transition: padding 1s, background-color 1s, border 1s;
+   line-height: 1;
+   border: 1px transparent;
+   border-radius: 10px;
+}
+
+.link:hover {
+   border: 1px red;
+   display: inline-block;
+   padding: 0 50px 0 50px;
+   background-color: red;
+}
+
+.subtitle {
+   text-align: center;
+   text-transform: uppercase;
+   border-bottom: 2px solid;
+   letter-spacing: 15px;
+   margin-bottom: 25px;
+}
+
+.image {
+   margin: 0 auto 20px;
+   width: 400px;
+}
+
+#name {
+   background-color: aqua;
+   text-align: center;
+   padding: 15px;
+   border: 3px solid #444;
+   width: 50%;
+   margin: 0 auto;
+}
+
+#name p {
+   color: blueviolet;
+}
+
+#paragraphone {
+   background-color: blanchedalmond;
+}
+
+.first,
+.second {
+   color: blue;
+}
+
+input,
+button {
+   padding: 10px;
+   font-size: 18px;
+}
