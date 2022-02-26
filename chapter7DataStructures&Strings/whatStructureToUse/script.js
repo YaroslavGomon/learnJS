@@ -62,3 +62,8 @@ const japaneseRestaurant = {
    },
 };
 
+// API - application programming interface
+// получение данных из самой программы, из пользовательского интерфейса (ввод данных от пользователя, DOM), из внешних источников (API)
+// Встроенные структуры данных в ДЖс: WeakMap, WeakSet
+// Невстроенные: Stacks, Queues, Linked lists, Trees, Hash tables
+// 
