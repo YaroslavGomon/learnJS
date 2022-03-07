@@ -66,7 +66,6 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayTransactions = function (transactions) {
-
   containerTransactions.innerHTML = '';
 
   transactions.forEach(function (trans, index) {
@@ -86,3 +85,24 @@ const displayTransactions = function (transactions) {
 
 displayTransactions(account1.transactions);
 
+const createNicknames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.nickname = acc.userName
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
+
+createNicknames(accounts);
+console.log(accounts);
+
+const userName = 'Oliver Avila'; // nickname = 'oa'
+const nickname = userName
+  .toLowerCase()
+  .split(' ')
+  .map(word => word[0])
+  .join('');
+
+console.log(nickname);
