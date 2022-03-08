@@ -96,13 +96,20 @@ const createNicknames = function (accs) {
 };
 
 createNicknames(accounts);
-console.log(accounts);
+// console.log(accounts);
 
-const userName = 'Oliver Avila'; // nickname = 'oa'
-const nickname = userName
-  .toLowerCase()
-  .split(' ')
-  .map(word => word[0])
-  .join('');
+// const userName = 'Oliver Avila'; // nickname = 'oa'
+// const nickname = userName
+//   .toLowerCase()
+//   .split(' ')
+//   .map(word => word[0])
+//   .join('');
 
-console.log(nickname);
+// console.log(nickname);
+
+const displayBalance = function (transactions) {
+  const balance = transactions.reduce((acc, trans) => acc + trans, 0);
+  labelBalance.textContent = `${balance}$`;
+};
+
+displayBalance(account1.transactions);
