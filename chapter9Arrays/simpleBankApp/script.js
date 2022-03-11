@@ -62,7 +62,7 @@ const inputLoginPin = document.querySelector('.login__input--pin');
 const inputTransferTo = document.querySelector('.form__input--to');
 const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
-const inputCloseUsername = document.querySelector('.form__input--user');
+const inputCloseNickname = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayTransactions = function (transactions) {
@@ -134,21 +134,27 @@ const displayTotal = function (account) {
 
 let currentAccount;
 
-btnLogin.addEventListener('click', function(e) {
+// Event Handlers
+
+btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
-  currentAccount = accounts.find(account => account.nickname === inputLoginUsername.value);
+  currentAccount = accounts.find(
+    account => account.nickname === inputLoginUsername.value
+  );
   console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     // Display UI and welcome
     containerApp.style.opacity = 100;
-    labelWelcome.textContent = `Рады, что вы снова с нами, ${currentAccount.userName.split(' ')[0]}!`;
+    labelWelcome.textContent = `Рады, что вы снова с нами, ${
+      currentAccount.userName.split(' ')[0]
+    }!`;
 
     // Clear inputs
     inputLoginUsername.value = '';
     inputLoginPin.value = '';
     inputLoginPin.blur();
-    
+
     // Display transactions
     displayTransactions(currentAccount.transactions);
 
@@ -157,6 +163,23 @@ btnLogin.addEventListener('click', function(e) {
 
     // Display total
     displayTotal(currentAccount);
-
   }
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseNickname.value === currentAccount.nickname &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const currentAccountIndex = accounts.findIndex(
+      account => account.nickname === currentAccount.nickname
+    );
+    accounts.splice(currentAccountIndex, 1);
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Войдите в свой аккаунт`;
+  }
+
+  inputCloseNickname.value = '';
+  inputClosePin.value = '';
 });
