@@ -105,8 +105,9 @@ createNicknames(accounts);
 
 // console.log(nickname);
 
-const displayBalance = function (transactions) {
-  const balance = transactions.reduce((acc, trans) => acc + trans, 0);
+const displayBalance = function (account) {
+  const balance = account.transactions.reduce((acc, trans) => acc + trans, 0);
+  account.balance = balance;
   labelBalance.textContent = `${balance}$`;
 };
 
@@ -132,6 +133,17 @@ const displayTotal = function (account) {
   labelSumInterest.textContent = `${interestTotal}$`;
 };
 
+const updateUi = function (account) {
+  // Display transactions
+  displayTransactions(account.transactions);
+
+  // Display balance
+  displayBalance(account);
+
+  // Display total
+  displayTotal(account);
+};
+
 let currentAccount;
 
 // Event Handlers
@@ -155,14 +167,29 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginPin.value = '';
     inputLoginPin.blur();
 
-    // Display transactions
-    displayTransactions(currentAccount.transactions);
+    updateUi(currentAccount);
+  }
+});
 
-    // Display balance
-    displayBalance(currentAccount.transactions);
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const transferAmount = Number(inputTransferAmount.value);
+  const recipientNickname = inputTransferTo.value;
+  const recipientAccount = accounts.find(
+    account => account.nickname === recipientNickname
+  );
+  inputTransferTo.value = '';
+  inputTransferAmount.value = '';
 
-    // Display total
-    displayTotal(currentAccount);
+  if (
+    transferAmount > 0 &&
+    currentAccount.balance >= transferAmount &&
+    recipientAccount &&
+    currentAccount.nickname !== recipientAccount?.nickname
+  ) {
+    currentAccount.transactions.push(-transferAmount);
+    recipientAccount.transactions.push(transferAmount);
+    updateUi(currentAccount);
   }
 });
 
@@ -182,4 +209,18 @@ btnClose.addEventListener('click', function (e) {
 
   inputCloseNickname.value = '';
   inputClosePin.value = '';
+});
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const loanAmount = Number(inputLoanAmount.value);
+
+  if (
+    loanAmount > 0 &&
+    currentAccount.transactions.some(trans => trans >= (loanAmount * 10) / 100)
+  ) {
+    currentAccount.transactions.push(loanAmount);
+    updateUi(currentAccount);
+  }
+  inputLoanAmount.value = '';
 });
