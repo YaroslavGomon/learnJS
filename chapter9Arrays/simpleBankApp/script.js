@@ -68,7 +68,9 @@ const inputClosePin = document.querySelector('.form__input--pin');
 const displayTransactions = function (transactions, sort = false) {
   containerTransactions.innerHTML = '';
 
-  const transacs = sort ? transactions.slice().sort((x, y) => x - y) : transactions;
+  const transacs = sort
+    ? transactions.slice().sort((x, y) => x - y)
+    : transactions;
 
   transacs.forEach(function (trans, index) {
     const transType = trans > 0 ? 'deposit' : 'withdrawal';
@@ -229,10 +231,20 @@ btnLoan.addEventListener('click', function (e) {
 
 let transactionSorted = false;
 
-btnSort.addEventListener('click', function(e) {
+btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   displayTransactions(currentAccount.transactions, !transactionSorted);
   transactionSorted = !transactionSorted;
 });
 
+// Array.from() example
 
+const logoImage = document.querySelector('.logo');
+logoImage.addEventListener('click', function () {
+  const transactionsUi = document.querySelectorAll('.transactions__value');
+  console.log(transactionsUi);
+  // const transactionsUiArr = Array.from(transactionsUi);
+  // console.log(transactionsUiArr.map(elem => Number(elem.textContent)));
+  const transactionsUiArr = Array.from(transactionsUi, elem => Number(elem.textContent));
+  console.log(transactionsUiArr);
+});
