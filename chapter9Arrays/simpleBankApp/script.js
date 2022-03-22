@@ -251,3 +251,15 @@ btnSort.addEventListener('click', function (e) {
 //   );
 //   console.log(transactionsUiArr);
 // });
+
+// const logoImage = document.querySelector('.logo');
+// logoImage.addEventListener('click', function () {
+//   [...document.querySelectorAll('.transactions__row')].forEach(function (
+//     row,
+//     i
+//   ) {
+//     if (i % 2 === 0) {
+//       row.style.backgroundColor = '#ccc';
+//     }
+//   });
+// });
