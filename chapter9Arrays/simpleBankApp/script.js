@@ -256,7 +256,7 @@ const updateUi = function (account) {
   displayTotal(account);
 };
 
-let currentAccount;
+let currentAccount, currentLogOutTimer;
 
 // Always loged in
 // currentAccount = account1;
@@ -264,6 +264,31 @@ let currentAccount;
 // containerApp.style.opacity = 100;
 
 // labelDate.textContent = `${day}/${month > 9 ? month : '0' + month}/${year}`;
+
+const startLogoutTimer = function () {
+  const logOutTimerCallback = function () {
+    const minutes = String(Math.trunc(time / 60)).padStart(2, '0');
+    const seconds = String(time % 60).padStart(2, '0');
+    // В каждом вызове показывать оставшееся время в UI
+    labelTimer.textContent = `${minutes}:${seconds}`;
+
+    // После истечения времени остановить таймер и выйти из приложения
+    if (time === 0) {
+      clearInterval(logOutTimer);
+      containerApp.style.opacity = 0;
+      labelWelcome.textContent = 'Войдите в свой аккаунт';
+    }
+    time--;
+  };
+  // установить время выхода через 5 минут
+  let time = 300;
+
+  // Вызов таймера каждую секунду
+  logOutTimerCallback();
+  const logOutTimer = setInterval(logOutTimerCallback, 1000);
+
+  return logOutTimer;
+};
 
 // Event Handlers
 
@@ -308,6 +333,10 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    // Check if the timer exists
+    if (currentLogOutTimer) clearInterval(currentLogOutTimer);
+    currentLogOutTimer = startLogoutTimer();
+
     updateUi(currentAccount);
   }
 });
@@ -337,6 +366,10 @@ btnTransfer.addEventListener('click', function (e) {
     recipientAccount.transactionsDates.push(new Date().toISOString());
 
     updateUi(currentAccount);
+
+    // Reset timer
+    clearInterval(currentLogOutTimer);
+    currentLogOutTimer = startLogoutTimer();
   }
 });
 
@@ -373,6 +406,10 @@ btnLoan.addEventListener('click', function (e) {
     }, 3000);
   }
   inputLoanAmount.value = '';
+  
+  // Reset timer
+  clearInterval(currentLogOutTimer);
+  currentLogOutTimer = startLogoutTimer();
 });
 
 let transactionSorted = false;
