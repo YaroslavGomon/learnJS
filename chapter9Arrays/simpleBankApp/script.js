@@ -366,9 +366,11 @@ btnLoan.addEventListener('click', function (e) {
     loanAmount > 0 &&
     currentAccount.transactions.some(trans => trans >= (loanAmount * 10) / 100)
   ) {
-    currentAccount.transactions.push(loanAmount);
-    currentAccount.transactionsDates.push(new Date().toISOString());
-    updateUi(currentAccount);
+    setTimeout(function () {
+      currentAccount.transactions.push(loanAmount);
+      currentAccount.transactionsDates.push(new Date().toISOString());
+      updateUi(currentAccount);
+    }, 3000);
   }
   inputLoanAmount.value = '';
 });
