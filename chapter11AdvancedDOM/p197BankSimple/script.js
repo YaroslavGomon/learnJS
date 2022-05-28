@@ -43,18 +43,18 @@ const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', e => {
   const section1Coords = section1.getBoundingClientRect();
-  console.log(section1Coords);
-  console.log(e.target.getBoundingClientRect());
-  console.log(
-    'Текущее прокручивание: x, y',
-    window.pageXOffset,
-    window.pageYOffset
-  );
-  console.log(
-    'Ширина и высота вьюпорта: ',
-    document.documentElement.clientWidth,
-    document.documentElement.clientHeight
-  );
+  // console.log(section1Coords);
+  // console.log(e.target.getBoundingClientRect());
+  // console.log(
+  //   'Текущее прокручивание: x, y',
+  //   window.pageXOffset,
+  //   window.pageYOffset
+  // );
+  // console.log(
+  //   'Ширина и высота вьюпорта: ',
+  //   document.documentElement.clientWidth,
+  //   document.documentElement.clientHeight
+  // );
 
   // window.scrollTo(section1Coords.left, section1Coords.top + window.pageYOffset);
   // window.scrollTo({
@@ -63,7 +63,7 @@ btnScrollTo.addEventListener('click', e => {
   //   behavior: 'smooth',
   // });
 
-  section1.scrollIntoView({behavior: 'smooth'})
+  section1.scrollIntoView({ behavior: 'smooth' });
 });
 
 //////////////////////////////////////////////////
@@ -144,3 +144,20 @@ btnScrollTo.addEventListener('click', e => {
 
 // // Не использовать
 // logo.className = 'a';
+
+///////////////////////////////////////////////
+// Виды событий и обработчиков событий
+const h1 = document.querySelector('h1');
+const h1ColorChange = e => {
+  h1.style.color = 'red';
+  h1.style.cursor = 'not-allowed';
+  // h1.removeEventListener('mouseenter', h1ColorChange)
+};
+
+h1.addEventListener('mouseenter', h1ColorChange);
+
+setTimeout(() => h1.removeEventListener('mouseenter', h1ColorChange), 2000);
+
+h1.onmouseleave = e => {
+  h1.style.color = 'green';
+};
