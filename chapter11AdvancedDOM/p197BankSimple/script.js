@@ -91,6 +91,30 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
+// Вкладки
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
+
+tabContainer.addEventListener('click', function (e) {
+  const clickedBtn = e.target.closest('.operations__tab');
+
+  // техника Guard clause - пункт охраны (мы проверяем условие)
+  if (!clickedBtn) return;
+
+  // Активная вкладка
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  clickedBtn.classList.add('operations__tab--active');
+
+  // Активный контент
+  tabContent.forEach(content =>
+    content.classList.remove('operations__content--active')
+  );
+  document
+    .querySelector(`.operations__content--${clickedBtn.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
 ///////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -237,27 +261,27 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 //////////////////////////////////////////////////
 // DOM traversing
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
-// Перемещение вниз (к потомкам)
-console.log(h1.querySelectorAll('.highlight'));
-console.log(h1.childNodes);
-console.log(h1.children);
-console.log(h1.firstElementChild);
-h1.firstElementChild.style.color = 'red';
-console.log(h1.lastElementChild);
+// // Перемещение вниз (к потомкам)
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children);
+// console.log(h1.firstElementChild);
+// h1.firstElementChild.style.color = 'red';
+// console.log(h1.lastElementChild);
 
-// Перемещение вверх (к продителям)
-console.log(h1.parentNode);
-console.log(h1.parentElement);
+// // Перемещение вверх (к продителям)
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
 
-const h2 = document.querySelector('h2');
-console.log(h2);
-h2.closest('.section').style.backgroundColor = 'blue';
-h2.closest('h2').style.backgroundColor = 'green';
+// const h2 = document.querySelector('h2');
+// console.log(h2);
+// h2.closest('.section').style.backgroundColor = 'blue';
+// h2.closest('h2').style.backgroundColor = 'green';
 
-// Перемещение на одном уровне (одноуровневые элементы)
-console.log(h2.previousElementSibling);
-console.log(h2.nextElementSibling);
+// // Перемещение на одном уровне (одноуровневые элементы)
+// console.log(h2.previousElementSibling);
+// console.log(h2.nextElementSibling);
 
-console.log(h1.parentElement.children);
+// console.log(h1.parentElement.children);
