@@ -140,6 +140,19 @@ nav.addEventListener('mouseover', navLinksHover.bind(0.4));
 
 nav.addEventListener('mouseout', navLinksHover.bind(1));
 
+// Sticky navigation
+
+const section1Coords = section1.getBoundingClientRect();
+console.log(section1Coords);
+
+window.addEventListener('scroll', function (e) {
+  if (window.scrollY > section1Coords.top) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+});
+
 ///////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 //////////////////////////////////////////////////
