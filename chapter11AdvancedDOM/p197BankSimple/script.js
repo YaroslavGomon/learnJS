@@ -8,6 +8,10 @@ const btnsOpenModalWindow = document.querySelectorAll(
 );
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
 ///////////////////////////////////////
 // Modal window
@@ -92,9 +96,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 // Вкладки
-const tabs = document.querySelectorAll('.operations__tab');
-const tabContainer = document.querySelector('.operations__tab-container');
-const tabContent = document.querySelectorAll('.operations__content');
 
 tabContainer.addEventListener('click', function (e) {
   const clickedBtn = e.target.closest('.operations__tab');
@@ -114,6 +115,30 @@ tabContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clickedBtn.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+// Анимация потускнения на панели навигации
+
+const navLinksHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const linkOver = e.target;
+    const siblingLinks = linkOver
+      .closest('.nav__links')
+      .querySelectorAll('.nav__link');
+    const logo = linkOver.closest('.nav').querySelector('img');
+    const logoText = linkOver.closest('.nav').querySelector('.nav__text');
+
+    siblingLinks.forEach(el => {
+      if (el !== linkOver) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+    logoText.style.opacity = this;
+  }
+};
+
+// Работа с аргументами при помощи bind() / this
+nav.addEventListener('mouseover', navLinksHover.bind(0.4));
+
+nav.addEventListener('mouseout', navLinksHover.bind(1));
 
 ///////////////////////////////////////////////////
 ////////////////////////////////////////////////////
