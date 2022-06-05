@@ -1,14 +1,16 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
 const modalWindow = document.querySelector('.modal-window');
 const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
 const btnsOpenModalWindow = document.querySelectorAll(
   '.btn--show-modal-window'
 );
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+///////////////////////////////////////
+// Modal window
 
 const openModalWindow = function (e) {
   e.preventDefault();
@@ -38,8 +40,6 @@ document.addEventListener('keydown', function (e) {
 });
 
 // Плавная прокрутка
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', e => {
   const section1Coords = section1.getBoundingClientRect();
@@ -66,6 +66,33 @@ btnScrollTo.addEventListener('click', e => {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+///////////////////////////////////////////////////
+// Smooth page navigation
+
+// document.querySelectorAll('.nav__link').forEach(function (htmlElement) {
+//   htmlElement.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const href = this.getAttribute('href');
+//     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+//     console.log(href);
+//   });
+// });
+
+// Делегирование событий
+// 1. Добавляем слушатель для ОБЩЕГО родителя
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  // 2. Определить таргет элемент
+  console.log(e.target);
+  if (e.target.classList.contains('nav__link')) {
+    const href = e.target.getAttribute('href');
+    console.log(href);
+    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+///////////////////////////////////////////////////
+////////////////////////////////////////////////////
 //////////////////////////////////////////////////
 // Выбор элементов
 // console.log(document.documentElement);
@@ -147,17 +174,62 @@ btnScrollTo.addEventListener('click', e => {
 
 ///////////////////////////////////////////////
 // Виды событий и обработчиков событий
-const h1 = document.querySelector('h1');
-const h1ColorChange = e => {
-  h1.style.color = 'red';
-  h1.style.cursor = 'not-allowed';
-  // h1.removeEventListener('mouseenter', h1ColorChange)
-};
+// const h1 = document.querySelector('h1');
+// const h1ColorChange = e => {
+//   h1.style.color = 'red';
+//   h1.style.cursor = 'not-allowed';
+//   // h1.removeEventListener('mouseenter', h1ColorChange)
+// };
 
-h1.addEventListener('mouseenter', h1ColorChange);
+// h1.addEventListener('mouseenter', h1ColorChange);
 
-setTimeout(() => h1.removeEventListener('mouseenter', h1ColorChange), 2000);
+// setTimeout(() => h1.removeEventListener('mouseenter', h1ColorChange), 3000);
 
-h1.onmouseleave = e => {
-  h1.style.color = 'green';
-};
+// h1.onmouseleave = e => {
+//   h1.style.color = 'green';
+// };
+
+//////////////////////////////////////////
+// Event propagation (всплытие события)
+// rgb(123, 56, 78)
+
+// function getRandom(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+// }
+
+// const getRandomColor = () =>
+//   `rgb(${getRandom(0, 255)}, ${getRandom(0, 255)}, ${getRandom(0, 255)})`;
+
+// console.log(getRandomColor());
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('link', e.target, e.currentTarget);
+//   // stop prapagation
+//   // e.stopPropagation();
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('links', e.target, e.currentTarget);
+// });
+
+// document.querySelector('.nav').addEventListener(
+//   'click',
+//   function (e) {
+//     e.preventDefault();
+//     this.style.backgroundColor = getRandomColor();
+//     console.log('nav', e.target, e.currentTarget);
+//   },
+//   true // при тру будет реагировать на фазе перехвата
+// );
+
+// document.querySelector('body').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('body', e.target, e.currentTarget);
+// });
