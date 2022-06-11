@@ -168,11 +168,11 @@ nav.addEventListener('mouseout', navLinksHover.bind(1));
 
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
-console.log(navHeight);
+// console.log(navHeight);
 
 const getStickyNav = function (entries) {
   const entry = entries[0];
-  console.log(entry);
+  // console.log(entry);
   if (!entry.isIntersecting) {
     nav.classList.add('sticky');
   } else {
@@ -180,12 +180,34 @@ const getStickyNav = function (entries) {
   }
 };
 
-const observer = new IntersectionObserver(getStickyNav, {
+const headerObserver = new IntersectionObserver(getStickyNav, {
   root: null,
   threshold: 0,
-  rootMargin: `-${navHeight}px`
+  rootMargin: `-${navHeight}px`,
 });
-observer.observe(header);
+headerObserver.observe(header);
+
+// Появление секций
+
+const allSections = document.querySelectorAll('.section');
+
+const appearanceSection = function (entries, observer) {
+  const entry = entries[0];
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(appearanceSection, {
+  root: null,
+  threshold: 0.2,
+});
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
 
 ///////////////////////////////////////////////////
 ////////////////////////////////////////////////////
