@@ -56,3 +56,31 @@ Person.prototype.creatureClass = 'Mammal';
 console.log(mary, john);
 console.log(mary.hasOwnProperty('birthYear'));
 console.log(mary.hasOwnProperty('creatureClass'));
+
+//////////////////////////////////////////////////////////
+// ПРототипное наследование для встроенных объектов
+
+console.log(youra.__proto__); // Person
+console.log(youra.__proto__.__proto__); // Object - верхушка цепи прототипов
+console.log(youra.__proto__.__proto__.__proto__); // null
+
+console.log(Person.prototype.constructor);
+console.dir(Person.prototype.constructor);
+
+const nums = [3, 4, 2, 5, 8, 8, 8];
+
+console.log(nums.__proto__); // одно и то же
+console.log(Object.getPrototypeOf(nums)); // одно и то же
+
+console.log(nums.__proto__ === Array.prototype);
+console.log(nums.__proto__.__proto__);
+
+// Bad practice
+Array.prototype.uniqueElements = function () {
+  return [...new Set(this)];
+};
+console.log(nums.uniqueElements());
+
+const h2 = document.querySelector('h2');
+console.dir(h2);
+console.dir(n => n * 2);
